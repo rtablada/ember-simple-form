@@ -27,7 +27,7 @@ To create a form without starting values:
 To listen to the submit event and get all values from the form and call the `login` action:
 
 ```hbs
-{{#simple-form onsubmit="login" as |formValues|}}
+{{#simple-form onsubmit=(action "login") as |formValues|}}
   {{input value=formValues.username placeholder="Username"}}
   {{input type="password" value=formValues.username placeholder="Password"}}
 
@@ -39,7 +39,7 @@ Let's set the form to start with a default username of "admin".
 Initial values can be set using the `startingValues` attribute:
 
 ```hbs
-{{#simple-form startingValues=(hash username="admin") onsubmit="login" as |formValues|}}
+{{#simple-form startingValues=(hash username="admin") onsubmit=(action "login") as |formValues|}}
   {{input value=formValues.username placeholder="Username"}}
   {{input type="password" value=formValues.username placeholder="Password"}}
 
