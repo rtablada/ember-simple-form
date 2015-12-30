@@ -39,7 +39,12 @@
     "ember-try": "~0.0.8"
   },
   "keywords": [
-    "ember-addon"
+    "ember",
+    "ember.js",
+    "ember-cli",
+    "ember-addon",
+    "form",
+    "input"
   ],
   "dependencies": {
     "ember-cli-htmlbars": "^1.0.1",
