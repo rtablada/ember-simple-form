@@ -1,5 +1,7 @@
 # Ember-simple-form
 
+[![npm version](https://badge.fury.io/js/ember-simple-form.svg)](http://badge.fury.io/js/ember-simple-form)
+[![Ember Observer Score](http://emberobserver.com/badges/ember-simple-form.svg)](http://emberobserver.com/addons/ember-simple-form)
 This README outlines the details of collaborating on this Ember addon.
 
 ## Installation
