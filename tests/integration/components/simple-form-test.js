@@ -54,3 +54,25 @@ test('it captures user input', function(assert) {
     assert.deepEqual(formValues, {firstName: 'Tom', lastName: 'Dale'});
   }
 });
+
+test('it only captures changed input', function(assert) {
+  this.on('captureEvent', captureEvent);
+  this.set('model', {firstName: 'Wow', lastName: 'Such Doge'});
+
+  this.render(hbs`
+    {{#simple-form onsubmit="captureEvent" as |formValues|}}
+      {{input value=formValues.firstName name="firstName"}}
+      {{input value=formValues.lastName name="lastName"}}
+      <button>Submit</button>
+    {{/simple-form}}
+  `);
+
+  this.$('input').eq(0).val('Tom');
+
+  this.$('input').eq(0).change();
+  this.$('button').click();
+
+  function captureEvent(formValues) {
+    assert.deepEqual(formValues, {firstName: 'Tom'});
+  }
+});

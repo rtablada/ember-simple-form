@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import layout from '../templates/components/simple-form';
-const {copy} = Ember;
+import BufferedProxy from 'ember-buffered-proxy/proxy';
 
 export default Ember.Component.extend({
   layout,
@@ -11,14 +11,7 @@ export default Ember.Component.extend({
   didReceiveAttrs() {
     this._super(...arguments);
     let startingValues = this.getAttr('startingValues') || {};
-    let formValues;
-
-    // Because Ember Model's Don't Implement Copyable
-    if (startingValues.toJSON) {
-      formValues = startingValues.toJSON();
-    } else {
-      formValues = copy(startingValues);
-    }
+    let formValues = BufferedProxy.create({content: startingValues});
 
     this.set('formValues', formValues);
   },
@@ -26,6 +19,6 @@ export default Ember.Component.extend({
   submit(ev) {
     ev.preventDefault();
 
-    this.sendAction('onsubmit', this.get('formValues'));
+    this.sendAction('onsubmit', this.get('formValues.buffer'));
   },
 });
