@@ -16,9 +16,13 @@ export default Ember.Component.extend({
     this.set('formValues', formValues);
   },
 
+  resetForm() {
+    this.get('formValues').discardBufferedChanges();
+  },
+
   submit(ev) {
     ev.preventDefault();
 
-    this.sendAction('onsubmit', this.get('formValues.buffer'));
+    this.sendAction('onsubmit', this.get('formValues.buffer'), this.resetForm.bind(this));
   },
 });

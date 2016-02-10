@@ -1,5 +1,6 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import Ember from 'ember';
 
 moduleForComponent('simple-form', 'Integration | Component | simple form', {
   integration: true
@@ -75,4 +76,31 @@ test('it only captures changed input', function(assert) {
   function captureEvent(formValues) {
     assert.deepEqual(formValues, {firstName: 'Tom'});
   }
+});
+
+test('it can reset the form', function(assert) {
+  Ember.run(() => {
+    this.on('captureEvent', captureEvent);
+    this.set('model', {firstName: 'Wow', lastName: 'Such Doge'});
+
+    this.render(hbs`
+      {{#simple-form onsubmit=(action "captureEvent") as |formValues resetForm|}}
+        {{input value=formValues.firstName name="firstName"}}
+        {{input value=formValues.lastName name="lastName"}}
+        <button>Submit</button>
+      {{/simple-form}}
+    `);
+
+    const $ = this.$;
+    const input = $('input');
+    input.eq(0).val('Tom');
+
+    input.eq(0).change();
+    $('button').click();
+
+    function captureEvent(formValues, resetForm) {
+      assert.deepEqual(formValues, {firstName: 'Tom'});
+      resetForm();
+    }
+  });
 });
