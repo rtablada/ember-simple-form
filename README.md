@@ -47,6 +47,44 @@ Initial values can be set using the `startingValues` attribute:
 {{/simple-form}}
 ```
 
+### Reseting the Form Values
+
+There may be times where the form needs to be reset.
+For this, as a second variable, `simple-form` yields a function to reset the form.
+
+This could be used to add a reset button to the form above:
+
+```htmlbars
+{{#simple-form startingValues=(hash username="admin") onsubmit=(action "login") as |formValues resetForm|}}
+  {{input value=formValues.username placeholder="Username"}}
+  {{input type="password" value=formValues.username placeholder="Password"}}
+
+  <button {{action resetForm}}>Reset</button>
+  <button>Submit</button>
+{{/simple-form}}
+```
+
+The `onsubmit` action will also send the `resetForm` function so that the form can be reset after handling submission.
+For instance, the controller for the above could be:
+
+```js
+import Ember from 'ember';
+
+export default Ember.Controller.extend({
+  actions: {
+    login(formValues, resetForm) {
+      fetch('/login', {
+        method: 'POST',
+        data: JSON.stringify(formValues)
+      }).then((res) => res.json())
+        .then(() => {
+          resetForm();
+        });
+    },
+  },
+});
+```
+
 ## Contributing
 
 ### Running
