@@ -1,6 +1,6 @@
 {
   "name": "ember-simple-form",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A form component for Ember inspired by DDAU and immutability.",
   "directories": {
     "doc": "doc",
