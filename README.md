@@ -4,6 +4,10 @@
 [![Ember Observer Score](http://emberobserver.com/badges/ember-simple-form.svg)](http://emberobserver.com/addons/ember-simple-form)
 
 Ember Simple Form is a basic component for decoupling your form data from it's original source.
+
+**TLDR;** Ember Simple Form takes care of a lot of edge cases around capturing form values.
+
+
 It uses Ember's `copy` method (or `.toJSON` on Ember Data models) to create an immutable copy of a set of `startingValues`.
 For capturing user `submit` actions, the form copies the current values within the form and then sends an `onsubmit` action which can be listened for.
 
